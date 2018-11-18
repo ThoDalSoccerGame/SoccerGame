@@ -1,23 +1,24 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
+using namespace sf;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	Window window;
+	window.create(VideoMode(), "GameSoccer", Style::Fullscreen);
 
 	while (window.isOpen())
 	{
-		sf::Event event;
+		Event event;
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == sf::Keyboard::Escape) {
+					window.close();
+				}
+			}
 		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
 	}
 
 	return 0;
