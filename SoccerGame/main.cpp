@@ -8,8 +8,8 @@ int main()
 {
 	#pragma region VARIABLES
 		RenderWindow window;
-		Texture background;
-		Sprite sprite;
+		Texture background, button_multi, button_solo, button_multi_push, button_solo_push;
+		Sprite sprite_background, sprite_multi, sprite_solo, sprite_setting, sprite_solo_push, sprite_multi_push;
 	#pragma endregion VARIABLES	
 
 	// Creer une fenetre avec le même mode de video que celui du Desktop
@@ -33,8 +33,9 @@ int main()
 
 		window.clear(Color::Black);
 		
+#pragma region BACKGROUND
 		// On charge la texture background
-		if (!background.loadFromFile("background.jpg"))
+		if (!background.loadFromFile("images/background.jpg"))
 		{
 			// On affiche une erreur dans la console si le BG n'est pas chargé
 			std::cout << "OU EST CE FOUTU BACKGROUND ??" << std::endl;
@@ -42,13 +43,89 @@ int main()
 		// On recupere le facteur d'echelle du BG par rapport à la fenetre
 		long double xScale = dWidth / 1920;
 		long double yScale = dHeight / 1080;
-	
+
 		// On applique la texture sur une sprite...
-		sprite.setTexture(background);
+		sprite_background.setTexture(background);
 		// On met à l'echelle la sprite pour qu'elle rentre dans la fenetre
-		sprite.setScale(xScale, yScale);
+		sprite_background.setScale(xScale, yScale);
 		// On dessine la sprite
-		window.draw(sprite);
+		window.draw(sprite_background);
+#pragma endregion BACKGROUND
+
+#pragma region BUTTON
+		// On charge les textures des boutons
+		if (!button_solo.loadFromFile("images/button_solo.png"))
+		{
+			// On affiche une erreur dans la console si les boutons ne sont pas chargés
+			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
+		}
+		if (!button_multi.loadFromFile("images/button_multi.png"))
+		{
+			// On affiche une erreur dans la console si les boutons ne sont pas chargés
+			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
+		}
+		if (!button_multi_push.loadFromFile("images/button_multi_push.png"))
+		{
+			// On affiche une erreur dans la console si les boutons ne sont pas chargés
+			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
+		}
+		if (!button_solo_push.loadFromFile("images/button_solo_push.png"))
+		{
+			// On affiche une erreur dans la console si les boutons ne sont pas chargés
+			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
+		}
+
+		Vector2u Size = button_solo_push.getSize();
+		float xSize = Size.x;
+		float ySize = Size.y;
+
+		// On applique les textures sur des sprite...
+		sprite_multi.setTexture(button_multi);
+		sprite_solo.setTexture(button_solo);
+		sprite_solo_push.setTexture(button_solo_push);
+		sprite_multi_push.setTexture(button_multi_push);
+		// On met à l'echelle les sprite
+		sprite_multi.setScale(xScale, yScale);
+		sprite_solo.setScale(xScale, yScale);
+		sprite_solo_push.setScale(xScale, yScale);
+		sprite_multi_push.setScale(xScale, yScale);
+		// On positione les sprite
+		sprite_multi.setPosition(705,233);
+		sprite_solo.setPosition(278, 233);
+		sprite_solo_push.setPosition(278, 250);
+		sprite_multi_push.setPosition(705, 250);
+		// On dessine la sprite
+		window.draw(sprite_multi);
+		window.draw(sprite_solo);
+
+		if (event.type == Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == Mouse::Left 
+				&& event.mouseButton.x > 278 
+				&& event.mouseButton.x < (278+ xSize)
+				&& event.mouseButton.y > 233
+				&& event.mouseButton.y < (233 + ySize)
+			){
+				window.clear(Color::Black);
+				window.draw(sprite_background);
+				window.draw(sprite_multi);
+				window.draw(sprite_solo_push);
+			}
+
+			if (event.mouseButton.button == Mouse::Left
+				&& event.mouseButton.x > 705
+				&& event.mouseButton.x < (705 + xSize)
+				&& event.mouseButton.y > 233
+				&& event.mouseButton.y < (233 + ySize)
+				) {
+				window.clear(Color::Black);	
+				window.draw(sprite_background);
+				window.draw(sprite_solo);
+				window.draw(sprite_multi_push);
+			}
+		}
+#pragma endregion BUTTON
+
 
 		window.display();
 	}
