@@ -6,22 +6,24 @@ using namespace sf;
 
 int main()
 {
-	#pragma region VARIABLES
+#pragma region VARIABLES
 		RenderWindow window;
+		Event event;
 		Texture background, button_multi, button_solo, button_multi_push, button_solo_push;
 		Sprite sprite_background, sprite_multi, sprite_solo, sprite_setting, sprite_solo_push, sprite_multi_push;
-	#pragma endregion VARIABLES	
+#pragma endregion VARIABLES	
 
+#pragma region WINDOW
 	// Creer une fenetre avec le même mode de video que celui du Desktop
 	VideoMode desktop = VideoMode::getDesktopMode();
 	float dWidth = desktop.width;
 	float dHeight = desktop.height;
 	float dBPP = desktop.bitsPerPixel;
 	window.create(VideoMode(dWidth, dHeight, dBPP), "GameSoccer", Style::Fullscreen);
+#pragma endregion WINDOW
 
 	while (window.isOpen())
 	{
-		Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::KeyPressed) {
@@ -92,7 +94,7 @@ int main()
 		// On positione les sprite
 		sprite_multi.setPosition(705,233);
 		sprite_solo.setPosition(278, 233);
-		sprite_solo_push.setPosition(278, 250);
+		sprite_solo_push.setPosition(276, 253);
 		sprite_multi_push.setPosition(705, 250);
 		// On dessine la sprite
 		window.draw(sprite_multi);
@@ -125,7 +127,6 @@ int main()
 			}
 		}
 #pragma endregion BUTTON
-
 
 		window.display();
 	}
