@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoccerGame", "SoccerGame\SoccerGame.vcxproj", "{21E77FB7-2964-4614-8186-AB14BB91A3A3}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoccerGame_Solo", "SoccerGame_Solo\SoccerGame_Solo.vcxproj", "{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +21,6 @@ Global
 		{21E77FB7-2964-4614-8186-AB14BB91A3A3}.Release|x64.Build.0 = Release|x64
 		{21E77FB7-2964-4614-8186-AB14BB91A3A3}.Release|x86.ActiveCfg = Release|Win32
 		{21E77FB7-2964-4614-8186-AB14BB91A3A3}.Release|x86.Build.0 = Release|Win32
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Debug|x64.ActiveCfg = Debug|x64
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Debug|x64.Build.0 = Debug|x64
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Debug|x86.ActiveCfg = Debug|Win32
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Debug|x86.Build.0 = Debug|Win32
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Release|x64.ActiveCfg = Release|x64
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Release|x64.Build.0 = Release|x64
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Release|x86.ActiveCfg = Release|Win32
-		{29C4CCC4-73CE-45D1-99CC-78D9C1618AB0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

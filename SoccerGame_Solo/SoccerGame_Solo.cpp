@@ -2,11 +2,10 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 
-using namespace sf;
+using namespace sf; 
 
-int main()
-{
-	Window window(VideoMode(800, 600), "My window");
+int main(){
+	sf::Window window(sf::VideoMode(800, 600), "My window");
 	// on fait tourner le programme jusqu'à ce que la fenêtre soit fermée
 	while (window.isOpen())
 	{
@@ -15,7 +14,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			// évènement "fermeture demandée" : on ferme la fenêtre
-			if (event.type == Event :: Closed ) {
+			if (event.type == Event::Closed) {
 				window.close();
 			}
 		}
