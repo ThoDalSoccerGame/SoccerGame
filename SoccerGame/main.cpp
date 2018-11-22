@@ -100,15 +100,11 @@ int main()
 		double posX_solo = fact_position_X_solo * dWidth;
 		double posY = fact_position_Y * dHeight;
 
-		std::cout << "pos x multi : " << posX_multi << std::endl;
-		std::cout << "pos x solo : " << posX_solo << std::endl;
-		std::cout << "pos y : " << posY << std::endl;
-
 		// On positione les sprite
 		sprite_multi.setPosition(posX_multi, posY);
 		sprite_solo.setPosition(posX_solo, posY);
-		sprite_solo_push.setPosition(276, 253);
-		sprite_multi_push.setPosition(705, 250);
+		sprite_solo_push.setPosition(posX_solo, posY);
+		sprite_multi_push.setPosition(posX_multi, posY);
 		// On dessine la sprite
 		window.draw(sprite_multi);
 		window.draw(sprite_solo);
