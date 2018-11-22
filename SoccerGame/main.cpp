@@ -78,22 +78,31 @@ int main()
 		sprite_sign_push.setScale(xScale, yScale);
 
 		// La reference de facteur pour la position des boutons (valeur de mon pc)
-		long double fact_position_X= float(705) / 1366;
-		long double fact_position_Y = float(233) / 768;
-		double posX_multi = fact_position_X_login * dWidth;
-		double posX_solo = fact_position_X_sign * dWidth;
-		double posY = fact_position_Y * dHeight;
+		long double fact_position_X = float(390) / 1366;
+		long double fact_position_Y_login = float(245) / 768;
+		long double fact_position_Y_sign = float(437) / 768;
+		double posX = fact_position_X * dWidth;
+		double posY_login = fact_position_Y_login * dWidth;
+		double posY_sign = fact_position_Y_sign * dHeight;
+
+		cout << fact_position_X;
+		cout << dWidth;
 
 		// On positione les sprite
-		sprite_multi.setPosition(posX_multi, posY);
-		sprite_solo.setPosition(posX_solo, posY);
-		sprite_solo_push.setPosition(posX_solo, posY);
-		sprite_multi_push.setPosition(posX_multi, posY);
+		sprite_login.setPosition(fact_position_X, fact_position_Y_login);
+		sprite_login_push.setPosition(fact_position_X, fact_position_Y_login);
+		sprite_sign.setPosition(fact_position_X, fact_position_Y_sign);
+		sprite_sign_push.setPosition(fact_position_X, fact_position_Y_sign);
+		sprite_login.setPosition(390, 245);
+		sprite_login_push.setPosition(390, 245);
+		sprite_sign.setPosition(390, 437);
+		sprite_sign_push.setPosition(390, 437);
+
 		// On dessine la sprite
 		window.draw(sprite_background);
-		window.draw(sprite_multi);
-		window.draw(sprite_solo);
-
+		window.draw(sprite_login);
+		window.draw(sprite_sign);
+		/*
 		if (event.type == Event::MouseButtonPressed)
 		{
 			if (event.mouseButton.button == Mouse::Left 
@@ -119,7 +128,7 @@ int main()
 				window.draw(sprite_solo);
 				window.draw(sprite_multi_push);
 			}
-		}
+		}*/
 #pragma endregion VISUEL
 
 		window.display();
