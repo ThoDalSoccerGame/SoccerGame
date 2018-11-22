@@ -4,11 +4,6 @@
 using namespace sf;
 
 
-void PartieSolo() 
-{
-#pragma 
-}
-
 int main()
 {
 #pragma region VARIABLES
