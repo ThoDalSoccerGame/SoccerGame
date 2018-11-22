@@ -4,6 +4,11 @@
 using namespace sf;
 
 
+void PartieSolo() 
+{
+	// A execter en cas de clique sur le bouton SOLO.
+}
+
 int main()
 {
 #pragma region VARIABLES
