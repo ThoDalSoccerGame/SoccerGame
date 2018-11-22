@@ -5,5 +5,4 @@ using namespace sf;
 
 int PartieSolo()
 {
-
 }
