@@ -6,7 +6,7 @@ using namespace sf;
 
 void PartieSolo() 
 {
-	// A execter en cas de clique sur le bouton SOLO.
+#pragma 
 }
 
 int main()
