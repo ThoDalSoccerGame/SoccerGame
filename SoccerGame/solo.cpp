@@ -6,18 +6,21 @@ using namespace std;
 
 int main()
 {
-
+#pragma region Variables
 	RenderWindow window;
 	Event event;
 	Texture background, armR, armL, legR, legL, head, body;
 	Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
+#pragma endregion Variables
 
+#pragma region Window
 	// Redimensionnage de la fenêtre en focntion de l'écran de l'ordinateur 
 	VideoMode desktop = VideoMode::getDesktopMode();
 	float dWidth = desktop.width;
 	float dHeight = desktop.height;
 	float dBPP = desktop.bitsPerPixel;
 	window.create(VideoMode(dWidth, dHeight, dBPP), "Partie Solo", Style::Fullscreen);
+#pragma endregion Window
 
 	// Boucle principal de la partie solo
 	while (window.isOpen())
@@ -33,6 +36,7 @@ int main()
 		
 		window.clear(Color::Black);
 
+#pragma region Background
 		// On va vérifier L'existence du background dans les ressources
 		if (!background.loadFromFile("../images/background.jpg")) {
 			cout << "OU EST CE FOUTU BACKGROUND ???" << endl;
@@ -47,7 +51,9 @@ int main()
 		sprite_background.setScale(xScale, yScale);
 		// On dessine le sprite :
 		window.draw(sprite_background);
+#pragma endregion Background
 
+#pragma region Personnage
 		/****************** Bras Droit *******************/
 		// On vérifie l'existence de l'image du bras droit dans les ressources.
 		if (!armR.loadFromFile("../images/armR.png")) {
@@ -68,6 +74,47 @@ int main()
 		// On dessine le sprite :
 		window.draw(sprite_armL);
 
+		/*************** Jambes Gauche ******************/
+		// On vérifie l'existence de l'image de la jambe gauche dans les ressources.
+		if (!legL.loadFromFile("../images/legL.png")) {
+			cout << "OU EST CETTE FOUTU JAMBE GAUCHE ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_legL.setTexture(legL);
+		// On dessine le sprite :
+		window.draw(sprite_legL);
 
+		/***************** Jambes Droites ****************/
+		// On vérifie l'existence de l'image de la jambe droite dans les ressources.
+		if (!legR.loadFromFile("../images/legR.png")) {
+			cout << "OU EST CETTE FOUTU JAMBE DROITE ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_legR.setTexture(legR);
+		// On dessine le sprite :
+		window.draw(sprite_armR);
+
+		/********************** Tête **********************/
+		// On vérifie l'existance de l'image de la tête dans les ressources.
+		if (!head.loadFromFile("../images/head.png")) {
+			cout << "OU EST CETTE FOUTU TÊTE ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_head.setTexture(head);
+		// On dessine le sprite :
+		window.draw(sprite_head);
+
+		/******************* Corps *************************/
+		// On vérifie l'existance de l'image du corps dans les ressources.
+		if (!body.loadFromFile("../images/body.png")) {
+			cout << "OU EST CE FOUTU CORPS ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_body.setTexture(body);
+		// On dessine le sprite :
+		window.draw(sprite_body);
+#pragma endregion Personnage
+
+		window.display();
 	}
 }
