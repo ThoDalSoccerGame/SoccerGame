@@ -37,7 +37,7 @@ int main()
 		
 #pragma region BACKGROUND
 		// On charge la texture background
-		if (!background.loadFromFile("images/background.jpg"))
+		if (!background.loadFromFile("../images/background.jpg"))
 		{
 			// On affiche une erreur dans la console si le BG n'est pas chargé
 			std::cout << "OU EST CE FOUTU BACKGROUND ??" << std::endl;
@@ -56,22 +56,22 @@ int main()
 
 #pragma region BUTTON
 		// On charge les textures des boutons
-		if (!button_solo.loadFromFile("images/button_solo.png"))
+		if (!button_solo.loadFromFile("../images/button_solo.png"))
 		{
 			// On affiche une erreur dans la console si les boutons ne sont pas chargés
 			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
 		}
-		if (!button_multi.loadFromFile("images/button_multi.png"))
+		if (!button_multi.loadFromFile("../images/button_multi.png"))
 		{
 			// On affiche une erreur dans la console si les boutons ne sont pas chargés
 			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
 		}
-		if (!button_multi_push.loadFromFile("images/button_multi_push.png"))
+		if (!button_multi_push.loadFromFile("../images/button_multi_push.png"))
 		{
 			// On affiche une erreur dans la console si les boutons ne sont pas chargés
 			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
 		}
-		if (!button_solo_push.loadFromFile("images/button_solo_push.png"))
+		if (!button_solo_push.loadFromFile("../images/button_solo_push.png"))
 		{
 			// On affiche une erreur dans la console si les boutons ne sont pas chargés
 			std::cout << "OU EST CE FOUTU BOUTON ??" << std::endl;
