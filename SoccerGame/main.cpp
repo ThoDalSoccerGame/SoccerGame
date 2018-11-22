@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+
 using namespace sf;
 using namespace std;
 
@@ -82,53 +83,46 @@ int main()
 		long double fact_position_Y_login = float(245) / 768;
 		long double fact_position_Y_sign = float(437) / 768;
 		double posX = fact_position_X * dWidth;
-		double posY_login = fact_position_Y_login * dWidth;
+		double posY_login = fact_position_Y_login * dHeight;
 		double posY_sign = fact_position_Y_sign * dHeight;
 
-		cout << fact_position_X;
-		cout << dWidth;
-
 		// On positione les sprite
-		sprite_login.setPosition(fact_position_X, fact_position_Y_login);
-		sprite_login_push.setPosition(fact_position_X, fact_position_Y_login);
-		sprite_sign.setPosition(fact_position_X, fact_position_Y_sign);
-		sprite_sign_push.setPosition(fact_position_X, fact_position_Y_sign);
-		sprite_login.setPosition(390, 245);
-		sprite_login_push.setPosition(390, 245);
-		sprite_sign.setPosition(390, 437);
-		sprite_sign_push.setPosition(390, 437);
+		sprite_login.setPosition(posX, posY_login);
+		sprite_login_push.setPosition(posX, posY_login);
+		sprite_sign.setPosition(posX, posY_sign);
+		sprite_sign_push.setPosition(posX, posY_sign);
 
 		// On dessine la sprite
 		window.draw(sprite_background);
 		window.draw(sprite_login);
 		window.draw(sprite_sign);
-		/*
+		
 		if (event.type == Event::MouseButtonPressed)
 		{
 			if (event.mouseButton.button == Mouse::Left 
-				&& event.mouseButton.x > 278 
-				&& event.mouseButton.x < (278+ xSize)
-				&& event.mouseButton.y > 233
-				&& event.mouseButton.y < (233 + ySize)
+				&& event.mouseButton.x > posX
+				&& event.mouseButton.x < (posX + xSize)
+				&& event.mouseButton.y > posY_login
+				&& event.mouseButton.y < (posY_login + ySize)
 			){
 				window.clear(Color::Black);
 				window.draw(sprite_background);
-				window.draw(sprite_multi);
-				window.draw(sprite_solo_push);
+				window.draw(sprite_sign);
+				window.draw(sprite_login_push);
 			}
 
 			if (event.mouseButton.button == Mouse::Left
-				&& event.mouseButton.x > 705
-				&& event.mouseButton.x < (705 + xSize)
-				&& event.mouseButton.y > 233
-				&& event.mouseButton.y < (233 + ySize)
+				&& event.mouseButton.x > posX
+				&& event.mouseButton.x < (posX + xSize)
+				&& event.mouseButton.y > posY_sign
+				&& event.mouseButton.y < (posY_sign + ySize)
 				) {
 				window.clear(Color::Black);	
 				window.draw(sprite_background);
-				window.draw(sprite_solo);
-				window.draw(sprite_multi_push);
+				window.draw(sprite_login);
+				window.draw(sprite_sign_push);
 			}
-		}*/
+		}
 #pragma endregion VISUEL
 
 		window.display();
