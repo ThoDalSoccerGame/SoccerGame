@@ -12,7 +12,7 @@ int main()
 		Texture background, button_multi, button_solo, button_multi_push, button_solo_push;
 		Sprite sprite_background, sprite_multi, sprite_solo, sprite_setting, sprite_solo_push, sprite_multi_push;
 #pragma endregion VARIABLES	
-
+		// TEST
 #pragma region WINDOW
 	// Creer une fenetre avec le même mode de video que celui du Desktop
 	VideoMode desktop = VideoMode::getDesktopMode();
