@@ -15,7 +15,7 @@ int main()
 		while (window.pollEvent(event))
 		{
 			// évènement "fermeture demandée" : on ferme la fenêtre
-			if (event.type == Event::Closed) {
+			if (event.type == Event :: Closed ) {
 				window.close();
 			}
 		}
