@@ -6,6 +6,17 @@ using namespace std;
 
 int main()
 {
+#pragma region InfoCorps
+	/*
+	Body : x = 70, y = 130
+	Head : x = 53, y = 53
+	Leg Right : x = 53, y = 138
+	Leg Left : x = 53, y = 128
+	Arm Right : x = 23, y = 108
+	Arm Left: x = 23, y = 108
+	*/
+#pragma endregion InfoCorps
+
 #pragma region Variables
 	RenderWindow window;
 	Event event;
@@ -83,6 +94,8 @@ int main()
 		sprite_legL.setTexture(legL);
 		// On dessine le sprite :
 		window.draw(sprite_legL);
+		// Position de test de la jambe gauche :
+		sprite_legL.setPosition(200,430);
 
 		/***************** Jambes Droites ****************/
 		// On vérifie l'existence de l'image de la jambe droite dans les ressources.
@@ -103,6 +116,8 @@ int main()
 		sprite_head.setTexture(head);
 		// On dessine le sprite :
 		window.draw(sprite_head);
+		// Position de test de la tête :
+		sprite_head.setPosition(210, 250);
 
 		/******************* Corps *************************/
 		// On vérifie l'existance de l'image du corps dans les ressources.
@@ -113,6 +128,9 @@ int main()
 		sprite_body.setTexture(body);
 		// On dessine le sprite :
 		window.draw(sprite_body);
+		// Position de test du corps :
+		sprite_body.setPosition(200, 300);
+
 #pragma endregion Personnage
 
 		window.display();
