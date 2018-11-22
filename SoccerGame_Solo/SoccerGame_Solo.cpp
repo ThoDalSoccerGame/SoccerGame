@@ -2,7 +2,7 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 
-using namespace sf
+using namespace sf;
 
 int main()
 {
