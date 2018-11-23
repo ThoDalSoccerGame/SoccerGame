@@ -6,6 +6,13 @@ using namespace std;
 
 int main()
 {
+#pragma region Variables
+	RenderWindow window;
+	Event event;
+	Texture background, armR, armL, legR, legL, head, body;
+	Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
+#pragma endregion Variables
+	
 #pragma region InfoCorps
 	/*
 	Body : x = 70, y = 130
@@ -16,13 +23,6 @@ int main()
 	Arm Left: x = 23, y = 108
 	*/
 #pragma endregion InfoCorps
-
-#pragma region Variables
-	RenderWindow window;
-	Event event;
-	Texture background, armR, armL, legR, legL, head, body;
-	Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
-#pragma endregion Variables
 
 #pragma region Window
 	// Redimensionnage de la fenêtre en focntion de l'écran de l'ordinateur 
@@ -39,8 +39,22 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::KeyPressed) {
-				if (event.key.code == Keyboard::Escape) {
+				switch (event.key.code) {
+				case(Keyboard::Escape):
 					window.close();
+					break;
+				case(Keyboard::Up):
+					// Fonction pour le mouvement du personnage
+					for (int i = 0; i < 150; i++) {
+						sprite_body.move(i, 150);
+						sprite_head.move(i, 150);
+						sprite_armR.move(i, 150);
+						sprite_armL.move(i, 150);
+						sprite_legR.move(i,150);
+						sprite_legL.move(i, 150);
+						window.display();
+					}
+					break;
 				}
 			}
 		}
@@ -142,3 +156,4 @@ int main()
 		window.display();
 	}
 }
+
