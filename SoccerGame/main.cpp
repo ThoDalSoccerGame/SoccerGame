@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <windows.h>
+#include <Lmcons.h>
 
 
 using namespace sf;
 using namespace std;
-
 
 int main()
 {
@@ -36,7 +37,13 @@ int main()
 		}
 
 		window.clear(Color::Black);
-		
+		TCHAR name[UNLEN + 1];
+		DWORD size = UNLEN + 1;
+
+		if (GetUserName((TCHAR*)name, &size))
+			cout << "Hello, " << name << "!\n";
+		else
+			cout << "Hello, unnamed person!\n";
 
 #pragma region VISUEL
 		if (!background.loadFromFile("../images/background.jpg")) {
