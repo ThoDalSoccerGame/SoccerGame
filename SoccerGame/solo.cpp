@@ -74,6 +74,8 @@ int main()
 		sprite_armR.setTexture(armR);
 		// On dessine le sprite :
 		window.draw(sprite_armR);
+		// Position de test du bras droit :
+		sprite_armR.setPosition(267, 375);
 
 		/***************** Bras Gauche *******************/
 		// On vérifie l'existence de l'image du bras gauche dans les ressources.
@@ -84,6 +86,8 @@ int main()
 		sprite_armL.setTexture(armL);
 		// On dessine le sprite :
 		window.draw(sprite_armL);
+		// Position de test du bras gauche :
+		sprite_armL.setPosition(180, 375);
 
 		/*************** Jambes Gauche ******************/
 		// On vérifie l'existence de l'image de la jambe gauche dans les ressources.
@@ -95,7 +99,7 @@ int main()
 		// On dessine le sprite :
 		window.draw(sprite_legL);
 		// Position de test de la jambe gauche :
-		sprite_legL.setPosition(200,430);
+		sprite_legL.setPosition(230, 495);
 
 		/***************** Jambes Droites ****************/
 		// On vérifie l'existence de l'image de la jambe droite dans les ressources.
@@ -105,7 +109,9 @@ int main()
 		// On applique la texture sur un sprite :
 		sprite_legR.setTexture(legR);
 		// On dessine le sprite :
-		window.draw(sprite_armR);
+		window.draw(sprite_legR);
+		// Position de test de la jambre droite
+		sprite_legR.setPosition(200, 495);
 
 		/********************** Tête **********************/
 		// On vérifie l'existance de l'image de la tête dans les ressources.
@@ -117,7 +123,7 @@ int main()
 		// On dessine le sprite :
 		window.draw(sprite_head);
 		// Position de test de la tête :
-		sprite_head.setPosition(210, 250);
+		sprite_head.setPosition(207, 325);
 
 		/******************* Corps *************************/
 		// On vérifie l'existance de l'image du corps dans les ressources.
@@ -129,7 +135,7 @@ int main()
 		// On dessine le sprite :
 		window.draw(sprite_body);
 		// Position de test du corps :
-		sprite_body.setPosition(200, 300);
+		sprite_body.setPosition(200, 375);
 
 #pragma endregion Personnage
 
