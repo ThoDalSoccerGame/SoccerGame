@@ -3,7 +3,6 @@
 #include <windows.h>
 #include <Lmcons.h>
 
-
 using namespace sf;
 using namespace std;
 
@@ -35,7 +34,7 @@ int main()
 				}
 			}
 		}
-
+		
 		window.clear(Color::Black);
 		TCHAR name[UNLEN + 1];
 		DWORD size = UNLEN + 1;
