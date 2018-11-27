@@ -1,19 +1,49 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <windows.h>
-#include <Lmcons.h>
+#include <string>
 
 using namespace sf;
 using namespace std;
 
+#pragma region VARIABLES
+RenderWindow window;
+Event event;
+Texture background, button_login, button_login_push, button_sign, button_sign_push;
+Sprite sprite_background, sprite_login, sprite_login_push, sprite_sign, sprite_sign_push;
+#pragma endregion VARIABLES	
+
+char Cle[] = "MUSIQUE"; // Formé de caractères de 'A' à 'Z' uniquement !
+char Ori[] = "J'ADORE EC_OUTER LA RADIO TOUTE LA JOURNEE";
+char Cry[100], Dec[100]; // Au moins aussi longs que Ori
+int nCle = strlen(Cle), nTxt = strlen(Ori);
+
+void Crypter() { // Ori ==> Cry
+	for (int i = 0, k = -1; i < nTxt; ++i) {
+		int c = (int)Ori[i];
+		Cry[i] = ((c < 'A') || (c > 'Z')) ? c : 'A' + (c + Cle[(++k) % nCle]) % 26;
+	} Cry[nTxt] = 0;
+}
+
+void Decrypter() { // Cry ==> Dec
+	for (int i = 0, k = -1; i < nTxt; ++i) {
+		int c = (int)Cry[i];
+		Dec[i] = ((c < 'A') || (c > 'Z')) ? c : 'A' + (78 + c - Cle[(++k) % nCle]) % 26;
+	} Dec[nTxt] = 0;
+}
+
+void login() {
+	window.clear(Color::Black);
+	window.draw(sprite_background);
+}
+
 int main()
 {
-#pragma region VARIABLES
-		RenderWindow window;
-		Event event;
-		Texture background, button_login, button_login_push, button_sign, button_sign_push;
-		Sprite sprite_background, sprite_login, sprite_login_push, sprite_sign, sprite_sign_push;
-#pragma endregion VARIABLES	
+	printf("Alphabet: A..Z; Clef: %sn", Cle);
+	printf("Texte original: %sn", Ori);
+	Crypter();
+	printf("Texte crypte  : %sn", Cry);
+	Decrypter();
+	printf("Texte decrypte: %sn", Dec);
 
 #pragma region WINDOW
 	// Creer une fenetre avec le même mode de video que celui du Desktop
@@ -36,13 +66,6 @@ int main()
 		}
 		
 		window.clear(Color::Black);
-		TCHAR name[UNLEN + 1];
-		DWORD size = UNLEN + 1;
-
-		if (GetUserName((TCHAR*)name, &size))
-			cout << "Hello, " << name << "!\n";
-		else
-			cout << "Hello, unnamed person!\n";
 
 #pragma region VISUEL
 		if (!background.loadFromFile("../images/background.jpg")) {
@@ -115,6 +138,7 @@ int main()
 				window.draw(sprite_background);
 				window.draw(sprite_sign);
 				window.draw(sprite_login_push);
+				login();
 			}
 
 			if (event.mouseButton.button == Mouse::Left
@@ -136,3 +160,4 @@ int main()
 
 	return 0;
 }
+
