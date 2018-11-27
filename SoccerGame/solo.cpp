@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-using namespace sf; 
+using namespace sf;
 using namespace std;
 
 int main()
@@ -46,12 +46,15 @@ int main()
 				case(Keyboard::Up):
 					// Fonction pour le mouvement du personnage
 					for (int i = 0; i < 150; i++) {
+						window.clear(Color::Black);
+
 						sprite_body.move(i, 150);
 						sprite_head.move(i, 150);
 						sprite_armR.move(i, 150);
 						sprite_armL.move(i, 150);
 						sprite_legR.move(i,150);
 						sprite_legL.move(i, 150);
+
 						window.display();
 					}
 					break;
