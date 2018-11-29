@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cmath>
 
 using namespace sf;
 using namespace std;
@@ -10,25 +11,14 @@ RenderWindow window;
 Event event;
 Texture background, armR, armL, legR, legL, head, body;
 Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
-int x_body = 200, y_body = 375, x_head = 207, y_head = 325, x_legR = 200, y_legR = 495, x_legL = 230, y_legL = 495, x_armL = 180 ,
-y_armL = 375, x_armR = 267, y_armR = 375;
+int x_body = 200, y_body = 375, x_head = 207, y_head = 325, x_legR = 200, y_legR = 495, x_legL = 230, y_legL = 495, x_armL = 180 , y_armL = 375, x_armR = 267, y_armR = 375;
 
 #pragma endregion Variables globales
 
-#pragma region Fonction 
 
-void wait(int duree) 
-{
-	/* Cette fonction permettre d'attendre la duree indiquer en entrée ( temps en milliseconde ) */
-	sf::Clock clock;
-	sf::Time time = clock.getElapsedTime();
-	while (time.asMilliseconds <= duree)
-	{}
-}
-
-#pragma endregion Fonction
 int main()
 {
+
 #pragma region InfoCorps
 	/*
 	Body : x = 70, y = 130
@@ -85,7 +75,7 @@ int main()
 						sprite_legR.setPosition(x_legR, y_legR);
 						x_legL += 1; // LEG L
 						sprite_legL.setPosition(x_legL, y_legL);
-						wait(500);
+						
 						window.display();
 					}
 					
