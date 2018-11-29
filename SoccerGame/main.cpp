@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <Windows.h>
 
 using namespace sf;
 using namespace std;
@@ -11,6 +12,7 @@ RenderWindow window;
 Event event;
 Texture background, bg_login, button_login, button_login_push, button_sign, button_sign_push;
 Sprite sprite_background, sprite_bg_login, sprite_login, sprite_login_push, sprite_sign, sprite_sign_push;
+int isLogin = 0, isSign = 0;
 #pragma endregion VARIABLES	
 
 /*char Cle[] = "MUSIQUE"; // Formé de caractères de 'A' à 'Z' uniquement !
@@ -82,13 +84,22 @@ void Decrypter() { // Cry ==> Dec
 }*/
 
 void login() {
-	window.clear(Color::Black);
 	bool login = true;
 	while (login)
 	{
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == sf::Keyboard::Escape) {
+					window.close();
+				}
+			}
+		}
+
+		window.clear(Color::Black);
 		window.draw(sprite_bg_login);
-		cout << "test" << endl;
-		/*if (event.type == Event::MouseButtonPressed)
+		
+		if (event.type == Event::MouseButtonPressed)
 		{
 			if (event.mouseButton.button == Mouse::Left
 				&& event.mouseButton.x > 0
@@ -97,8 +108,12 @@ void login() {
 				&& event.mouseButton.y < (100)
 			){
 				login = false;
+				isLogin = 0;
+				isSign = 0;
 			}
-		}*/
+		}
+
+		window.display();
 	}
 }
 
@@ -121,16 +136,7 @@ int main()
 #pragma endregion WINDOW
 
 	while (window.isOpen())
-	{
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::KeyPressed) {
-				if (event.key.code == sf::Keyboard::Escape) {
-					window.close();
-				}
-			}
-		}
-		
+	{		
 		window.clear(Color::Black);
 
 #pragma region VISUEL
@@ -164,34 +170,57 @@ int main()
 		window.draw(sprite_login);
 		window.draw(sprite_sign);
 
-		if (event.type == Event::MouseButtonPressed)
-		{
-			if (event.mouseButton.button == Mouse::Left 
-				&& event.mouseButton.x > posX
-				&& event.mouseButton.x < (posX + xSize)
-				&& event.mouseButton.y > posY_login
-				&& event.mouseButton.y < (posY_login + ySize)
-			){
-				window.clear(Color::Black);
-				window.draw(sprite_background);
-				window.draw(sprite_sign);
-				window.draw(sprite_login_push);
-				login();
-			}
+#pragma endregion VISUEL
 
-			if (event.mouseButton.button == Mouse::Left
-				&& event.mouseButton.x > posX
-				&& event.mouseButton.x < (posX + xSize)
-				&& event.mouseButton.y > posY_sign
-				&& event.mouseButton.y < (posY_sign + ySize)
-				) {
-				window.clear(Color::Black);	
-				window.draw(sprite_background);
-				window.draw(sprite_login);
-				window.draw(sprite_sign_push);
+#pragma region EVENT
+		while (window.pollEvent(event))
+		{
+			switch (event.type) {
+			case Event::KeyPressed: {
+				if (event.key.code == sf::Keyboard::Escape) {
+					window.close();
+				}
+			} break;
+
+			case  Event::MouseButtonPressed: {
+				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > posX
+					&& event.mouseButton.x < (posX + xSize)
+					&& event.mouseButton.y > posY_login
+					&& event.mouseButton.y < (posY_login + ySize)
+					) {
+					isLogin = 1;
+					window.clear(Color::Black);
+					window.draw(sprite_background);
+					window.draw(sprite_sign);
+					window.draw(sprite_login_push);
+				}
+
+				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > posX
+					&& event.mouseButton.x < (posX + xSize)
+					&& event.mouseButton.y > posY_sign
+					&& event.mouseButton.y < (posY_sign + ySize)
+					) {
+					isSign = 1;
+					window.clear(Color::Black);
+					window.draw(sprite_background);
+					window.draw(sprite_login);
+					window.draw(sprite_sign_push);
+				}
+			} break;
+
+			case sf::Event::MouseButtonReleased: {
+				if (isLogin == 1 && event.mouseButton.button == sf::Mouse::Left) {
+					login();
+				}
+			} break;
+
+			default:
+				break;
 			}
 		}
-#pragma endregion VISUEL
+#pragma endregion EVENT
 
 		window.display();
 	}
