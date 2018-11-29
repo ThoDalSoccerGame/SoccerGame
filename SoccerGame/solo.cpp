@@ -107,7 +107,7 @@ int main()
 						
 						window.display();
 					}
-					returnAngle();
+					ReturnAngle();
 					break;
 				}
 			}
