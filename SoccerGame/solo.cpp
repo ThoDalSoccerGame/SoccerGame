@@ -4,15 +4,31 @@
 using namespace sf;
 using namespace std;
 
+#pragma region Variables globales
+
+RenderWindow window;
+Event event;
+Texture background, armR, armL, legR, legL, head, body;
+Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
+int x_body = 200, y_body = 375, x_head = 207, y_head = 325, x_legR = 200, y_legR = 495, x_legL = 230, y_legL = 495, x_armL = 180 ,
+y_armL = 375, x_armR = 267, y_armR = 375;
+
+#pragma endregion Variables globales
+
+#pragma region Fonction 
+
+void wait(int duree) 
+{
+	/* Cette fonction permettre d'attendre la duree indiquer en entrée ( temps en milliseconde ) */
+	sf::Clock clock;
+	sf::Time time = clock.getElapsedTime();
+	while (time.asMilliseconds <= duree)
+	{}
+}
+
+#pragma endregion Fonction
 int main()
 {
-#pragma region Variables
-	RenderWindow window;
-	Event event;
-	Texture background, armR, armL, legR, legL, head, body;
-	Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
-#pragma endregion Variables
-	
 #pragma region InfoCorps
 	/*
 	Body : x = 70, y = 130
@@ -24,13 +40,19 @@ int main()
 	*/
 #pragma endregion InfoCorps
 
+#pragma region Variables 
+
+#pragma endregion Variables
+
 #pragma region Window
+
 	// Redimensionnage de la fenêtre en focntion de l'écran de l'ordinateur 
 	VideoMode desktop = VideoMode::getDesktopMode();
 	float dWidth = desktop.width;
 	float dHeight = desktop.height;
 	float dBPP = desktop.bitsPerPixel;
 	window.create(VideoMode(dWidth, dHeight, dBPP), "Partie Solo", Style::Fullscreen);
+
 #pragma endregion Window
 
 	// Boucle principal de la partie solo
@@ -45,18 +67,28 @@ int main()
 					break;
 				case(Keyboard::Up):
 					// Fonction pour le mouvement du personnage
-					for (int i = 0; i < 150; i++) {
-						window.clear(Color::Black);
-
-						sprite_body.move(i, 150);
-						sprite_head.move(i, 150);
-						sprite_armR.move(i, 150);
-						sprite_armL.move(i, 150);
-						sprite_legR.move(i,150);
-						sprite_legL.move(i, 150);
-
+					for (int i = 0; i < 100 ; i++) {
+						if (event.type == Event::KeyPressed) {
+							if (event.key.code == Keyboard::Escape) {
+								window.close();
+							}
+						}
+						x_body += 1; // BODY
+						sprite_body.setPosition(x_body, y_body);
+						x_head += 1; // HEAD
+						sprite_head.setPosition(x_head, y_head);
+						x_armL += 1; // ARM L
+						sprite_armL.setPosition(x_armL, y_armL);
+						x_armR += 1; // ARM R
+						sprite_armR.setPosition(x_armR, y_armR);
+						x_legR += 1; //LEG R
+						sprite_legR.setPosition(x_legR, y_legR);
+						x_legL += 1; // LEG L
+						sprite_legL.setPosition(x_legL, y_legL);
+						wait(500);
 						window.display();
 					}
+					
 					break;
 				}
 			}
@@ -65,6 +97,7 @@ int main()
 		window.clear(Color::Black);
 
 #pragma region Background
+
 		// On va vérifier L'existence du background dans les ressources
 		if (!background.loadFromFile("../images/background.jpg")) {
 			cout << "OU EST CE FOUTU BACKGROUND ???" << endl;
@@ -79,56 +112,21 @@ int main()
 		sprite_background.setScale(xScale, yScale);
 		// On dessine le sprite :
 		window.draw(sprite_background);
+
 #pragma endregion Background
 
 #pragma region Personnage
-		/****************** Bras Droit *******************/
-		// On vérifie l'existence de l'image du bras droit dans les ressources.
-		if (!armR.loadFromFile("../images/armR.png")) {
-			cout << "OU EST CE FOUTU BRAS DROIT ???" << endl;
+		/******************* Corps *************************/
+		// On vérifie l'existance de l'image du corps dans les ressources.
+		if (!body.loadFromFile("../images/body.png")) {
+			cout << "OU EST CE FOUTU CORPS ???" << endl;
 		}
 		// On applique la texture sur un sprite :
-		sprite_armR.setTexture(armR);
+		sprite_body.setTexture(body);
 		// On dessine le sprite :
-		window.draw(sprite_armR);
-		// Position de test du bras droit :
-		sprite_armR.setPosition(267, 375);
-
-		/***************** Bras Gauche *******************/
-		// On vérifie l'existence de l'image du bras gauche dans les ressources.
-		if (!armL.loadFromFile("../images/armL.png")) {
-			cout << "OU EST CE FOUTU BRAS GAUCHE ???" << endl;
-		}
-		// On applique la texture sur un sprite :
-		sprite_armL.setTexture(armL);
-		// On dessine le sprite :
-		window.draw(sprite_armL);
-		// Position de test du bras gauche :
-		sprite_armL.setPosition(180, 375);
-
-		/*************** Jambes Gauche ******************/
-		// On vérifie l'existence de l'image de la jambe gauche dans les ressources.
-		if (!legL.loadFromFile("../images/legL.png")) {
-			cout << "OU EST CETTE FOUTU JAMBE GAUCHE ???" << endl;
-		}
-		// On applique la texture sur un sprite :
-		sprite_legL.setTexture(legL);
-		// On dessine le sprite :
-		window.draw(sprite_legL);
-		// Position de test de la jambe gauche :
-		sprite_legL.setPosition(230, 495);
-
-		/***************** Jambes Droites ****************/
-		// On vérifie l'existence de l'image de la jambe droite dans les ressources.
-		if (!legR.loadFromFile("../images/legR.png")) {
-			cout << "OU EST CETTE FOUTU JAMBE DROITE ???" << endl;
-		}
-		// On applique la texture sur un sprite :
-		sprite_legR.setTexture(legR);
-		// On dessine le sprite :
-		window.draw(sprite_legR);
-		// Position de test de la jambre droite
-		sprite_legR.setPosition(200, 495);
+		window.draw(sprite_body);
+		// Position de test du corps :
+		sprite_body.setPosition(x_body, y_body);
 
 		/********************** Tête **********************/
 		// On vérifie l'existance de l'image de la tête dans les ressources.
@@ -140,20 +138,56 @@ int main()
 		// On dessine le sprite :
 		window.draw(sprite_head);
 		// Position de test de la tête :
-		sprite_head.setPosition(207, 325);
+		sprite_head.setPosition(x_head, y_head);
 
-		/******************* Corps *************************/
-		// On vérifie l'existance de l'image du corps dans les ressources.
-		if (!body.loadFromFile("../images/body.png")) {
-			cout << "OU EST CE FOUTU CORPS ???" << endl;
+		/*************** Jambes Gauche ******************/
+		// On vérifie l'existence de l'image de la jambe gauche dans les ressources.
+		if (!legL.loadFromFile("../images/legL.png")) {
+			cout << "OU EST CETTE FOUTU JAMBE GAUCHE ???" << endl;
 		}
 		// On applique la texture sur un sprite :
-		sprite_body.setTexture(body);
+		sprite_legL.setTexture(legL);
 		// On dessine le sprite :
-		window.draw(sprite_body);
-		// Position de test du corps :
-		sprite_body.setPosition(200, 375);
+		window.draw(sprite_legL);
+		// Position de test de la jambe gauche :
+		sprite_legL.setPosition(x_legL, y_legL);
 
+		/***************** Jambes Droites ****************/
+		// On vérifie l'existence de l'image de la jambe droite dans les ressources.
+		if (!legR.loadFromFile("../images/legR.png")) {
+			cout << "OU EST CETTE FOUTU JAMBE DROITE ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_legR.setTexture(legR);
+		// On dessine le sprite :
+		window.draw(sprite_legR);
+		// Position de test de la jambre droite
+		sprite_legR.setPosition(x_legR, y_legR);
+
+		/***************** Bras Gauche *******************/
+		// On vérifie l'existence de l'image du bras gauche dans les ressources.
+		if (!armL.loadFromFile("../images/armL.png")) {
+			cout << "OU EST CE FOUTU BRAS GAUCHE ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_armL.setTexture(armL);
+		// On dessine le sprite :
+		window.draw(sprite_armL);
+		// Position de test du bras gauche :
+		sprite_armL.setPosition(x_armL, y_armL);
+
+		/****************** Bras Droit *******************/
+		// On vérifie l'existence de l'image du bras droit dans les ressources.
+		if (!armR.loadFromFile("../images/armR.png")) {
+			cout << "OU EST CE FOUTU BRAS DROIT ???" << endl;
+		}
+		// On applique la texture sur un sprite :
+		sprite_armR.setTexture(armR);
+		// On dessine le sprite :
+		window.draw(sprite_armR);
+		// Position de test du bras droit :
+		sprite_armR.setPosition(x_armR, y_armR);
+		
 #pragma endregion Personnage
 
 		window.display();
