@@ -22,11 +22,6 @@ Arm Left: x = 23, y = 108
 RenderWindow window;
 Event event;
 
-// Variables des sprites/draw
-Texture background, armR, armL, legR, legL, head, body;
-Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
-int x_body = 200, y_body = 375, x_head = 207, y_head = 325, x_legR = 200, y_legR = 495, x_legL = 230, y_legL = 495, x_armL = 180 , y_armL = 375, x_armR = 267, y_armR = 375;
-
 // Redimensionnage de la fenêtre en fonction de l'écran de l'ordinateur 
 VideoMode desktop = VideoMode::getDesktopMode();
 float dWidth = desktop.width;
@@ -36,6 +31,16 @@ float dBPP = desktop.bitsPerPixel;
 // On récupère la longueur du background en fonction de la taille de la fenêtre :
 long double xScale = dWidth / 1920;
 long double yScale = dHeight / 1080;
+
+// Variables des sprites/draw
+Texture background, armR, armL, legR, legL, head, body;
+Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
+int x_body = 200 * xScale, y_body = 495 * yScale,
+	x_head = 207 * xScale, y_head = 445 * yScale,
+	x_legR = 200 * xScale, y_legR = 615 * yScale,
+	x_legL = 230 * xScale, y_legL = 615 * yScale,
+	x_armL = 180 * xScale, y_armL = 495 * yScale, 
+	x_armR = 267 * xScale, y_armR = 495 * yScale;
 
 #pragma endregion Variables globales
 
@@ -92,17 +97,17 @@ int main()
 								window.close();
 							}
 						}
-						x_body += 1; // BODY
+						y_body -= 1; // BODY
 						sprite_body.setPosition(x_body, y_body);
-						x_head += 1; // HEAD
+						y_head -= 1; // HEAD
 						sprite_head.setPosition(x_head, y_head);
-						x_armL += 1; // ARM L
+						y_armL -= 1; // ARM L
 						sprite_armL.setPosition(x_armL, y_armL);
-						x_armR += 1; // ARM R
+						y_armR -= 1; // ARM R
 						sprite_armR.setPosition(x_armR, y_armR);
-						x_legR += 1; //LEG R
+						y_legR -= 1; //LEG R
 						sprite_legR.setPosition(x_legR, y_legR);
-						x_legL += 1; // LEG L
+						y_legL -= 1; // LEG L
 						sprite_legL.setPosition(x_legL, y_legL);
 						
 						window.display();
