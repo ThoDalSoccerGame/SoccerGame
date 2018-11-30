@@ -35,7 +35,7 @@ long double yScale = dHeight / 1080;
 // Variables des sprites/draw
 Texture background, armR, armL, legR, legL, head, body;
 Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
-int x_body = 200 * xScale, y_body = 495 * yScale,
+int x_body = 200 * xScale, y_body = 495 * yScale,  
 	x_head = 207 * xScale, y_head = 445 * yScale,
 	x_legR = 200 * xScale, y_legR = 615 * yScale,
 	x_legL = 230 * xScale, y_legL = 615 * yScale,
@@ -49,17 +49,31 @@ int x_body = 200 * xScale, y_body = 495 * yScale,
 /* Cette fonction renvoie l'angle du personnage en fonction du sol */
 double ReturnAngle()
 {
-	// Coordonnée de la tête : x_head, y_head
-	// Coordonnée du corps : x_body, y_body
 #pragma region Variables
-	double coefficient_directeur, horizontal_personnage;
+
+	double coefficient_directeur, horizontal_personnage = 1.0, coordonnee_sol_origin, hauteur_sol
+		  ,ox_head, oy_head, ox_body, oy_body;
+
 #pragma endregion Variables
 
-	coefficient_directeur = (y_head - y_body) / (x_head - x_body);
+	// On reprends les coordonnées du sol en fonction de l'origine original :
+	coordonnee_sol_origin = 730 * xScale;
+
+	// Soit la hauteur depuis l'origine du repère 0 avec comme origine le sol est à hauteur écran - coordonnee_sol_origin
+	hauteur_sol = dHeight - coordonnee_sol_origin;
+
+	// Calcul des coordonnées des deux repères pour l'horizontal du personnage en fonction du nouveau repère :
+	ox_head = x_head;
+	oy_head = dHeight - hauteur_sol - y_head;
+	ox_body = x_body;
+	oy_body = dHeight - hauteur_sol - y_body;
+
+	// Définition du cooeficient directeur
+	coefficient_directeur = (oy_head - oy_body) / (ox_head - ox_body);
 	
+	cout << coefficient_directeur;
 	// Le rapport entre le coefficient directeur du personnage et son horizontal est de -1/7 
-	horizontal_personnage = coefficient_directeur * (-1) ;
-	horizontal_personnage /= 7;
+	
 
 	return horizontal_personnage ;
 }
