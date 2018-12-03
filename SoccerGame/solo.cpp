@@ -54,7 +54,7 @@ double ReturnAngle()
 {
 #pragma region Variables
 
-	double coefficient_directeur, coordonnee_sol_origin, hauteur_sol, facteur_rotation
+	double coefficient_directeur, coordonnee_sol_origin, hauteur_sol
 		  ,ox_head, oy_head, ox_body, oy_body;
 
 #pragma endregion Variables
@@ -74,37 +74,43 @@ double ReturnAngle()
 	// Définition du cooeficient directeur
 	coefficient_directeur = (oy_head - oy_body) / (ox_head - ox_body);
 	
-	// Le rapport entre le coefficient directeur et la réference horizontale qui est de 7.
-	facteur_rotation = 7 / coefficient_directeur;
+	cout << coefficient_directeur;
 
-	cout << facteur_rotation;
-
-	return facteur_rotation ;
+	return coefficient_directeur ;
 }
 
 // Cette fonction permettra de faire un saut
 void jump()
 {
-	for (int i = 0; i < 100; i += 10) {
-		y_body -= 10; // BODY
+	int PositionInitial = 1;
+	int angle = 95;
+	int vitesse = 500;
+
+	while (PositionInitial < 100){
+		y_body -= -2.81 / ( 2* vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // BODY
+		cout << y_body << endl;
 		sprite_body.setPosition(x_body, y_body);
 		//sprite_body.setRotation(45);
-		y_head -= 10; // HEAD
+		y_head -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // HEAD
 		sprite_head.setPosition(x_head, y_head);
 		//sprite_head.setRotation(45);
-		y_armL -= 10; // ARM L
+		y_armL -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // ARM L
 		sprite_armL.setPosition(x_armL, y_armL);
 		//sprite_armL.setRotation(45);
-		y_armR -= 10; // ARM R
+		y_armR -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // ARM R
 		sprite_armR.setPosition(x_armR, y_armR);
 		//sprite_armR.setRotation(45);
-		y_legR -= 10; //LEG R
+		y_legR -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; //LEG R
 		sprite_legR.setPosition(x_legR, y_legR);
 		//sprite_legR.setRotation(45);
-		y_legL -= 10; // LEG L
+		y_legL -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // LEG L
 		sprite_legL.setPosition(x_legL, y_legL);
 		//sprite_legL.setRotation(45);
 		Sleep(500);
+		PositionInitial += 1;
+		x_body += 10; x_head += 10; x_armL += 10; x_armR += 10; x_legR += 10; x_legL += 10;
+		
+		
 	}
 }
 
@@ -113,20 +119,15 @@ void jump()
 int main()
 {
 
-#pragma region Variables 
+#pragma region Variables
+
 	int compteur_mouvement = 0;
+
 #pragma endregion Variables
 
 #pragma region Window
 
 	window.create(VideoMode(dWidth, dHeight, dBPP), "Partie Solo", Style::Fullscreen);
-
-/*	sf::Transform trans;
-	sf::CircleShape c;
-	c.setPosition(50, 50);
-	c.setRadius(50);
-	trans.rotate(centre);
-	window.draw(c, trans); */
 	
 #pragma endregion Window
 
