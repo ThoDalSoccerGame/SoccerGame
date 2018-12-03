@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+#include <Windows.h>
 
 using namespace sf;
 using namespace std;
@@ -42,6 +43,8 @@ int x_body = 200 * xScale, y_body = 495 * yScale,
 	x_armL = 180 * xScale, y_armL = 495 * yScale, 
 	x_armR = 267 * xScale, y_armR = 495 * yScale;
 
+
+
 #pragma endregion Variables globales
 
 #pragma region Fonction
@@ -51,7 +54,7 @@ double ReturnAngle()
 {
 #pragma region Variables
 
-	double coefficient_directeur, horizontal_personnage = 1.0, coordonnee_sol_origin, hauteur_sol
+	double coefficient_directeur, coordonnee_sol_origin, hauteur_sol, facteur_rotation
 		  ,ox_head, oy_head, ox_body, oy_body;
 
 #pragma endregion Variables
@@ -71,11 +74,38 @@ double ReturnAngle()
 	// Définition du cooeficient directeur
 	coefficient_directeur = (oy_head - oy_body) / (ox_head - ox_body);
 	
-	cout << coefficient_directeur;
-	// Le rapport entre le coefficient directeur du personnage et son horizontal est de -1/7 
-	
+	// Le rapport entre le coefficient directeur et la réference horizontale qui est de 7.
+	facteur_rotation = 7 / coefficient_directeur;
 
-	return horizontal_personnage ;
+	cout << facteur_rotation;
+
+	return facteur_rotation ;
+}
+
+// Cette fonction permettra de faire un saut
+void jump()
+{
+	for (int i = 0; i < 100; i += 10) {
+		y_body -= 10; // BODY
+		sprite_body.setPosition(x_body, y_body);
+		//sprite_body.setRotation(45);
+		y_head -= 10; // HEAD
+		sprite_head.setPosition(x_head, y_head);
+		//sprite_head.setRotation(45);
+		y_armL -= 10; // ARM L
+		sprite_armL.setPosition(x_armL, y_armL);
+		//sprite_armL.setRotation(45);
+		y_armR -= 10; // ARM R
+		sprite_armR.setPosition(x_armR, y_armR);
+		//sprite_armR.setRotation(45);
+		y_legR -= 10; //LEG R
+		sprite_legR.setPosition(x_legR, y_legR);
+		//sprite_legR.setRotation(45);
+		y_legL -= 10; // LEG L
+		sprite_legL.setPosition(x_legL, y_legL);
+		//sprite_legL.setRotation(45);
+		Sleep(500);
+	}
 }
 
 #pragma endregion Fonction
@@ -84,14 +114,27 @@ int main()
 {
 
 #pragma region Variables 
-
+	int compteur_mouvement = 0;
 #pragma endregion Variables
 
 #pragma region Window
 
 	window.create(VideoMode(dWidth, dHeight, dBPP), "Partie Solo", Style::Fullscreen);
 
+/*	sf::Transform trans;
+	sf::CircleShape c;
+	c.setPosition(50, 50);
+	c.setRadius(50);
+	trans.rotate(centre);
+	window.draw(c, trans); */
+	
 #pragma endregion Window
+
+#pragma region Threads
+
+	sf::Thread threadJump(&jump);
+
+#pragma endregion Threads
 
 	// Boucle principal de la partie solo
 	while (window.isOpen())
@@ -105,27 +148,19 @@ int main()
 					break;
 				case(Keyboard::Up):
 					// Fonction pour le mouvement du personnage
-					for (int i = 0; i < 100 ; i++) {
-						if (event.type == Event::KeyPressed) {
-							if (event.key.code == Keyboard::Escape) {
-								window.close();
-							}
+				
+					if (event.type == Event::KeyPressed) {
+						if (event.key.code == Keyboard::Escape) {
+							window.close();
 						}
-						y_body -= 1; // BODY
-						sprite_body.setPosition(x_body, y_body);
-						y_head -= 1; // HEAD
-						sprite_head.setPosition(x_head, y_head);
-						y_armL -= 1; // ARM L
-						sprite_armL.setPosition(x_armL, y_armL);
-						y_armR -= 1; // ARM R
-						sprite_armR.setPosition(x_armR, y_armR);
-						y_legR -= 1; //LEG R
-						sprite_legR.setPosition(x_legR, y_legR);
-						y_legL -= 1; // LEG L
-						sprite_legL.setPosition(x_legL, y_legL);
-						
-						window.display();
 					}
+				
+					threadJump.launch();
+					
+					window.display();
+						
+					Sleep(100);
+					
 					ReturnAngle();
 					break;
 				}
@@ -239,4 +274,3 @@ int main()
 		window.display();
 	}
 }
-
