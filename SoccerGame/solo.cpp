@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <cmath>
+#include <math.h>
 #include <Windows.h>
 
 using namespace sf;
@@ -54,10 +54,14 @@ double ReturnAngle()
 {
 #pragma region Variables
 
-	double coefficient_directeur, coordonnee_sol_origin, hauteur_sol
-		  ,ox_head, oy_head, ox_body, oy_body;
+	double coordonnee_sol_origin, hauteur_sol , anglePersoSol
+		  ,ox_legR, oy_legR, ox_body, oy_body
+		  ,x_legRBody, y_legRBody, x_SolBody, y_SolBody, Norme_legRBody, Norme_SolBody
+		  ,scalaire_coordonnee;
 
 #pragma endregion Variables
+
+/****************** INITIALISATION CALCUL DES VECTEURS POUR LE CALCUL D'ANGLE **********************/
 
 	// On reprends les coordonnées du sol en fonction de l'origine original :
 	coordonnee_sol_origin = 730 * xScale;
@@ -65,18 +69,30 @@ double ReturnAngle()
 	// Soit la hauteur depuis l'origine du repère 0 avec comme origine le sol est à hauteur écran - coordonnee_sol_origin
 	hauteur_sol = dHeight - coordonnee_sol_origin;
 
-	// Calcul des coordonnées des deux repères pour l'horizontal du personnage en fonction du nouveau repère :
-	ox_head = x_head;
-	oy_head = dHeight - hauteur_sol - y_head;
+	// On prends deux points du corps qui sont toujours alignées et ont les mets dans le nouveau repère.
+	ox_legR = x_legR;
+	oy_legR = dHeight - hauteur_sol - y_legR;
 	ox_body = x_body;
 	oy_body = dHeight - hauteur_sol - y_body;
 
-	// Définition du cooeficient directeur
-	coefficient_directeur = (oy_head - oy_body) / (ox_head - ox_body);
-	
-	cout << coefficient_directeur;
+	// On va calculer les coordonnées du vecteur legR/Body :
+	x_legRBody = ox_legR - ox_body;
+	y_legRBody = oy_legR - oy_body;
+	// On calcul au passage la norme de ce vecteur :
+	Norme_legRBody = sqrt(x_legRBody*x_legRBody + y_legRBody * y_legRBody);
 
-	return coefficient_directeur ;
+	// On calcul le vecteur Sol/Body partant du principe que les coordonnées du sol pris en compte seront ox_body et 0 en y 
+	x_SolBody = ox_body - ox_body;
+	y_SolBody = 0 - oy_body;
+	// On calcul au passage la norme de ce vecteur :
+	Norme_SolBody = sqrt(x_SolBody * x_SolBody + y_SolBody * y_SolBody);
+
+/***************************** CALCUL DES SCALAIRES POUR TROUVER L'ANGLE ********************************/
+
+	// Calcul du produit scalaire des deux angles par coordonnées.
+	scalaire_coordonnee = x_legRBody * x_SolBody + y_legRBody * y_SolBody;
+
+	return  ;
 }
 
 // Cette fonction permettra de faire un saut
