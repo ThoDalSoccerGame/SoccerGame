@@ -19,11 +19,11 @@ Arm Left: x = 23, y = 108
 
 #pragma region Variables globales
 
-// Variables sys
+// Variables sys :
 RenderWindow window;
 Event event;
 
-// Redimensionnage de la fenêtre en fonction de l'écran de l'ordinateur 
+// Redimensionnage de la fenêtre en fonction de l'écran de l'ordinateur :
 VideoMode desktop = VideoMode::getDesktopMode();
 float dWidth = desktop.width;
 float dHeight = desktop.height;
@@ -33,9 +33,9 @@ float dBPP = desktop.bitsPerPixel;
 long double xScale = dWidth / 1920;
 long double yScale = dHeight / 1080;
 
-// Variables des sprites/draw
+// Variables des sprites/draw :
 Texture background, armR, armL, legR, legL, head, body;
-Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body;
+Sprite sprite_background, sprite_armR, sprite_armL, sprite_legR, sprite_legL, sprite_head, sprite_body, sprite_sol;
 int x_body = 200 * xScale, y_body = 495 * yScale,  
 	x_head = 207 * xScale, y_head = 445 * yScale,
 	x_legR = 200 * xScale, y_legR = 615 * yScale,
@@ -43,7 +43,14 @@ int x_body = 200 * xScale, y_body = 495 * yScale,
 	x_armL = 180 * xScale, y_armL = 495 * yScale, 
 	x_armR = 267 * xScale, y_armR = 495 * yScale;
 
-
+// Variables des boudingbox pour la collision :
+FloatRect boudingboxBody = sprite_body.getGlobalBounds();
+FloatRect boudingboxHead = sprite_head.getGlobalBounds();
+FloatRect boudingboxLegR = sprite_legR.getGlobalBounds();
+FloatRect boudingboxLegL = sprite_legL.getGlobalBounds();
+FloatRect boudingboxArmR = sprite_armR.getGlobalBounds();
+FloatRect boudingboxArmL = sprite_armL.getGlobalBounds();
+FloatRect boudingboxSol = sprite_sol.getGlobalBounds();
 
 #pragma endregion Variables globales
 
@@ -53,11 +60,11 @@ int x_body = 200 * xScale, y_body = 495 * yScale,
 double ReturnAngle()
 {
 #pragma region Variables
-
+	
 	double coordonnee_sol_origin, hauteur_sol , anglePersoSol
 		  ,ox_legR, oy_legR, ox_body, oy_body
 		  ,x_legRBody, y_legRBody, x_SolBody, y_SolBody, Norme_legRBody, Norme_SolBody
-		  ,scalaire_coordonnee;
+		  ,scalaire_coordonnee, cosAngle, AngleHaut, AngleSol;
 
 #pragma endregion Variables
 
@@ -91,42 +98,88 @@ double ReturnAngle()
 
 	// Calcul du produit scalaire des deux angles par coordonnées.
 	scalaire_coordonnee = x_legRBody * x_SolBody + y_legRBody * y_SolBody;
+	cosAngle = scalaire_coordonnee / (Norme_legRBody*Norme_SolBody);
+	AngleHaut = acos(cosAngle);
 
-	return  ;
+	// Somme des angles d'un triangle = 180 :
+	AngleSol = 180 - 90 - AngleHaut;
+
+	cout << AngleSol;
+	return AngleSol;
 }
 
-// Cette fonction permettra de faire un saut
+/* Cette fonction renverra un booléen avec comme entrée les membres du corps du personnages pour vérifier si il touche le sol */
+bool touchSol(FloatRect head, FloatRect body, FloatRect legR, FloatRect legL, FloatRect armR, FloatRect armL)
+{
+	// Vérification pour le head :
+	if (head.intersects(boudingboxSol)) {
+		cout << "false";
+		return false;
+	}
+
+	// Vérification pour le body :
+	if (body.intersects(boudingboxSol)) {
+		cout << "false";
+		return false;
+	}
+
+	// Vérification pour le legR :
+	if (legR.intersects(boudingboxSol)) {
+		cout << "false";
+		return false;
+	}
+
+	// Vérification pour le legL :
+	if (legL.intersects(boudingboxSol)) {
+		cout << "false";
+		return false;
+	}
+
+	// Vérification pour le armR :
+	if (armR.intersects(boudingboxSol)) {
+		cout << "false";
+		return false;
+	}
+
+	// Vérification pour le armL :
+	if (armL.intersects(boudingboxSol)) {
+		cout << "false";
+		return false;
+	}
+	cout << "true";
+	return true;
+}
+
+/* Cette fonction permettra de faire un saut */
 void jump()
 {
 	int PositionInitial = 1;
-	int angle = 95;
-	int vitesse = 500;
+	int angle = ReturnAngle();
+	int vitesse = 40;
 
-	while (PositionInitial < 100){
-		y_body -= -2.81 / ( 2* vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // BODY
-		cout << y_body << endl;
+	while (touchSol(boudingboxHead,boudingboxBody,boudingboxLegR,boudingboxLegL,boudingboxArmR,boudingboxArmL) != false )
+	{
+		y_body += (-9.81 / ( 2* vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial ); // BODY
 		sprite_body.setPosition(x_body, y_body);
 		//sprite_body.setRotation(45);
-		y_head -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // HEAD
+		y_head += (-9.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial ); // HEAD
 		sprite_head.setPosition(x_head, y_head);
 		//sprite_head.setRotation(45);
-		y_armL -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // ARM L
+		y_armL += (-9.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial ); // ARM L
 		sprite_armL.setPosition(x_armL, y_armL);
 		//sprite_armL.setRotation(45);
-		y_armR -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // ARM R
+		y_armR += (-9.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial ); // ARM R
 		sprite_armR.setPosition(x_armR, y_armR);
 		//sprite_armR.setRotation(45);
-		y_legR -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; //LEG R
+		y_legR += (-9.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial ); //LEG R
 		sprite_legR.setPosition(x_legR, y_legR);
 		//sprite_legR.setRotation(45);
-		y_legL -= -2.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial; // LEG L
+		y_legL += (-9.81 / (2 * vitesse * vitesse * cos(angle)) * (PositionInitial * PositionInitial) + tan(angle) * PositionInitial ); // LEG L
 		sprite_legL.setPosition(x_legL, y_legL);
-		//sprite_legL.setRotation(45);
-		Sleep(500);
-		PositionInitial += 1;
-		x_body += 10; x_head += 10; x_armL += 10; x_armR += 10; x_legR += 10; x_legL += 10;
-		
-		
+
+		Sleep(200);
+		PositionInitial += 50;
+		x_body += 50; x_head += 50; x_armL += 50; x_armR += 50; x_legR += 50; x_legL += 50;
 	}
 }
 
@@ -285,7 +338,12 @@ int main()
 		window.draw(sprite_armR);
 		// Position de test du bras droit :
 		sprite_armR.setPosition(x_armR, y_armR);
-		
+
+		/**************** Sprite pour le sol ************/
+		sprite_sol.setScale(dWidth, dHeight - 720 * yScale);
+		// Position du sprite :
+		sprite_sol.setPosition(0, 720 * yScale);
+
 #pragma endregion Personnage
 
 		window.display();
