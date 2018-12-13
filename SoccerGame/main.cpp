@@ -10,7 +10,7 @@ using namespace std;
 #pragma region VARIABLES
 RenderWindow window;
 Event event;
-Font main_font;
+Font main_font, arial_font;
 Text pseudo, password;
 Texture background, bg_login, button_login, button_login_push, button_sign, button_sign_push;
 Sprite sprite_background, sprite_bg_login, sprite_login, sprite_login_push, sprite_sign, sprite_sign_push;
@@ -52,11 +52,14 @@ void LoadFont() {
 	if (!main_font.loadFromFile("../ressources/fonts/Players.ttf")) {
 		std::cout << "OU EST CETTE FOUTU POLICE PLAYERS ??" << std::endl;
 	}
+	if (!arial_font.loadFromFile("../ressources/fonts/arial.ttf")) {
+		std::cout << "OU EST CETTE FOUTU POLICE ARIAL ??" << std::endl;
+	}
 }
 
 void TextFont() {
 	pseudo.setFont(main_font);
-	password.setFont(main_font);
+	password.setFont(arial_font);
 }
 
 void SpriteTexture(){
@@ -100,10 +103,9 @@ void Decrypter() { // Cry ==> Dec
 	} Dec[nTxt] = 0;
 }*/
 
-string form(Text stringF, Text otherString, string stringForm, int is_password) {
+string form(Text stringF, Text otherString, string stringForm) {
 	int stop = 0;
-	is_form = 1;
-	string stringPass = "";
+
 	while (stop == 0) {
 		while (window.pollEvent(event))
 		{
@@ -115,38 +117,22 @@ string form(Text stringF, Text otherString, string stringForm, int is_password) 
 					&& event.mouseButton.y > 0
 					&& event.mouseButton.y < (dHeight)
 				){
-					if (is_password == 0) {
-						return stringForm;
-					}
-					else {
-						return stringPass;
-					}
+					return stringForm;
 				}
 			} break;
 
 			case  Event::TextEntered: {
 				if (event.text.unicode < 128 && event.text.unicode != 27 && event.text.unicode != 8) {
-					if (is_password == 0) {
-						stringF.setString("");
-						stringForm = stringForm + static_cast<char>(event.text.unicode);
-					}
-					else if (is_password == 1) {
-						stringF.setString("");
-						stringPass = stringPass + static_cast<char>(event.text.unicode);
-						stringForm = stringForm + static_cast<char>(8226);
-					}
+					stringF.setString("");
+					stringForm = stringForm + static_cast<char>(event.text.unicode);
 				}
+
 				if (event.text.unicode == 8) {
 					stringForm.pop_back();
 				}
 
 				if (event.text.unicode == 27) {
-					if (is_password == 0) {
-						return stringForm;
-					}
-					else {
-						return stringPass;
-					}
+					return stringForm;
 				}
 			} break;
 
@@ -154,6 +140,65 @@ string form(Text stringF, Text otherString, string stringForm, int is_password) 
 				break;
 			}
 		}
+
+		stringF.setString(stringForm);
+		window.clear();
+		window.draw(sprite_bg_login);
+		window.draw(otherString);
+		window.draw(stringF);
+		window.display();
+	}
+}
+
+vector<string> formPass(Text stringF, Text otherString, string stringForm) {
+	int stop = 0;
+	string stringPass = "";
+
+	while (stop == 0) {
+		while (window.pollEvent(event))
+		{
+			switch (event.type) {
+			case  Event::MouseButtonPressed: {
+				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > 0
+					&& event.mouseButton.x < (dWidth)
+					&& event.mouseButton.y > 0
+					&& event.mouseButton.y < (dHeight)
+					) {
+
+					vector<string> result;
+					result.push_back(stringForm);
+					result.push_back(stringPass);
+					return result;
+				}
+			} break;
+
+			case  Event::TextEntered: {
+				if (event.text.unicode < 128 && event.text.unicode != 27 && event.text.unicode != 8) {
+					if (stringForm.length() < 25) {
+						stringF.setString("");
+						stringForm = stringForm + static_cast<char>(event.text.unicode);
+						stringPass = stringPass + static_cast<char>(183);
+					}
+				}
+				
+				if (event.text.unicode == 8) {
+					stringForm.pop_back();
+				}
+
+				if (event.text.unicode == 27) {
+					vector<string> result;
+					result.push_back(stringForm);
+					result.push_back(stringPass);
+					return result;
+				}
+			} break;
+
+			default:
+				break;
+			}
+		}
+
 		stringF.setString(stringForm);
 		window.clear();
 		window.draw(sprite_bg_login);
@@ -166,7 +211,10 @@ string form(Text stringF, Text otherString, string stringForm, int is_password) 
 void login() {
 	bool login = true;
 	string stringPseudo = "";
-	string stringPassword = "";
+	vector<string> stringPassword;
+	string stringPass = "";
+	string stringPassPoint = "";
+
 	while (login)
 	{
 #pragma region EVENT
@@ -200,7 +248,7 @@ void login() {
 					pseudo.setCharacterSize(24);
 					pseudo.setFillColor(Color::Black);
 					pseudo.setPosition(560, 257);
-					stringPseudo = form(pseudo, password, stringPseudo, 0);
+					stringPseudo = form(pseudo, password, stringPseudo);
 				}
 
 				if (event.mouseButton.button == Mouse::Left
@@ -209,10 +257,14 @@ void login() {
 					&& event.mouseButton.y > 354
 					&& event.mouseButton.y < (354 + 68)
 				){
-					password.setCharacterSize(24);
+					password.setLetterSpacing(0.2);
+					password.setCharacterSize(50);
 					password.setFillColor(Color::Black);
-					password.setPosition(637, 361);
-					stringPassword = form(password, pseudo, stringPassword, 1);
+					password.setPosition(637, 348);
+
+					stringPassword = formPass(password, pseudo, stringPass);
+					stringPass = stringPassword[0];
+					stringPassPoint = stringPassword[1];
 				}
 			} break;
 
@@ -225,7 +277,7 @@ void login() {
 		window.clear(Color::Black);
 		window.draw(sprite_bg_login);
 		pseudo.setString(stringPseudo);
-		password.setString(stringPassword);
+		password.setString(stringPassPoint);
 		window.draw(password);
 		window.draw(pseudo);
 		window.display();
