@@ -123,11 +123,13 @@ string form(Text stringF, Text otherString, string stringForm) {
 
 			case  Event::TextEntered: {
 				if (event.text.unicode < 128 && event.text.unicode != 27 && event.text.unicode != 8) {
-					stringF.setString("");
-					stringForm = stringForm + static_cast<char>(event.text.unicode);
+					if (stringForm.length() < 15) {
+						stringF.setString("");
+						stringForm = stringForm + static_cast<char>(event.text.unicode);
+					}
 				}
 
-				if (event.text.unicode == 8) {
+				if (event.text.unicode == 8 && stringForm != "") {
 					stringForm.pop_back();
 				}
 
@@ -150,9 +152,9 @@ string form(Text stringF, Text otherString, string stringForm) {
 	}
 }
 
-vector<string> formPass(Text stringF, Text otherString, string stringForm) {
+vector<string> formPass(Text stringF, Text otherString, string stringForm, string stringPassPoint) {
 	int stop = 0;
-	string stringPass = "";
+	string stringPass = stringPassPoint;
 
 	while (stop == 0) {
 		while (window.pollEvent(event))
@@ -176,16 +178,16 @@ vector<string> formPass(Text stringF, Text otherString, string stringForm) {
 			case  Event::TextEntered: {
 				if (event.text.unicode < 128 && event.text.unicode != 27 && event.text.unicode != 8) {
 					if (stringForm.length() < 25) {
-						stringF.setString("");
 						stringForm = stringForm + static_cast<char>(event.text.unicode);
 						stringPass = stringPass + static_cast<char>(183);
 					}
 				}
 				
-				if (event.text.unicode == 8) {
+				if (event.text.unicode == 8 && stringForm != "") {
+					stringPass.pop_back();
 					stringForm.pop_back();
 				}
-
+		
 				if (event.text.unicode == 27) {
 					vector<string> result;
 					result.push_back(stringForm);
@@ -199,7 +201,7 @@ vector<string> formPass(Text stringF, Text otherString, string stringForm) {
 			}
 		}
 
-		stringF.setString(stringForm);
+		stringF.setString(stringPass);
 		window.clear();
 		window.draw(sprite_bg_login);
 		window.draw(otherString);
@@ -262,7 +264,7 @@ void login() {
 					password.setFillColor(Color::Black);
 					password.setPosition(637, 348);
 
-					stringPassword = formPass(password, pseudo, stringPass);
+					stringPassword = formPass(password, pseudo, stringPass, stringPassPoint);
 					stringPass = stringPassword[0];
 					stringPassPoint = stringPassword[1];
 				}
