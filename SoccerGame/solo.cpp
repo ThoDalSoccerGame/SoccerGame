@@ -242,7 +242,7 @@ int main()
 #pragma region Background
 
 		// On va vérifier L'existence du background dans les ressources
-		if (!background.loadFromFile("../images/background.jpg")) {
+		if (!background.loadFromFile("../Ressources/images/background.jpg")) {
 			cout << "OU EST CE FOUTU BACKGROUND ???" << endl;
 		}
 		// On applique la texture sur une sprite :
@@ -257,7 +257,7 @@ int main()
 #pragma region Personnage
 		/******************* Corps *************************/
 		// On vérifie l'existance de l'image du corps dans les ressources.
-		if (!body.loadFromFile("../images/body.png")) {
+		if (!body.loadFromFile("../Ressources/images/body.png")) {
 			cout << "OU EST CE FOUTU CORPS ???" << endl;
 		}
 		// On applique la texture sur un sprite :
@@ -271,7 +271,7 @@ int main()
 
 		/********************** Tête **********************/
 		// On vérifie l'existance de l'image de la tête dans les ressources.
-		if (!head.loadFromFile("../images/head.png")) {
+		if (!head.loadFromFile("../Ressources/images/head.png")) {
 			cout << "OU EST CETTE FOUTU TÊTE ???" << endl;
 		}
 		// On applique la texture sur un sprite :
@@ -285,7 +285,7 @@ int main()
 
 		/*************** Jambes Gauche ******************/
 		// On vérifie l'existence de l'image de la jambe gauche dans les ressources.
-		if (!legL.loadFromFile("../images/legL.png")) {
+		if (!legL.loadFromFile("../Ressources/images/legL.png")) {
 			cout << "OU EST CETTE FOUTU JAMBE GAUCHE ???" << endl;
 		}
 		// On applique la texture sur un sprite :
@@ -299,7 +299,7 @@ int main()
 
 		/***************** Jambes Droites ****************/
 		// On vérifie l'existence de l'image de la jambe droite dans les ressources.
-		if (!legR.loadFromFile("../images/legR.png")) {
+		if (!legR.loadFromFile("../Ressources/images/legR.png")) {
 			cout << "OU EST CETTE FOUTU JAMBE DROITE ???" << endl;
 		}
 		// On applique la texture sur un sprite :
@@ -313,7 +313,7 @@ int main()
 
 		/***************** Bras Gauche *******************/
 		// On vérifie l'existence de l'image du bras gauche dans les ressources.
-		if (!armL.loadFromFile("../images/armL.png")) {
+		if (!armL.loadFromFile("../Ressources/images/armL.png")) {
 			cout << "OU EST CE FOUTU BRAS GAUCHE ???" << endl;
 		}
 		// On applique la texture sur un sprite :
@@ -327,7 +327,7 @@ int main()
 
 		/****************** Bras Droit *******************/
 		// On vérifie l'existence de l'image du bras droit dans les ressources.
-		if (!armR.loadFromFile("../images/armR.png")) {
+		if (!armR.loadFromFile("../Ressources/images/armR.png")) {
 			cout << "OU EST CE FOUTU BRAS DROIT ???" << endl;
 		}
 		// On applique la texture sur un sprite :
