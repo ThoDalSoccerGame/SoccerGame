@@ -5,21 +5,43 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Personnage
 {
 	public :
+		Personnage();
+		~Personnage();
+		void createPersonnage(std::string link_body,
+							  std::string link_head,
+							  std::string link_armR,
+							  std::string link_armL,
+						   	  std::string link_legR,
+							  std::string link_legL,
+							  sf::Texture texture_body,
+						      sf::Texture texture_head,
+							  sf::Texture texture_armR,
+							  sf::Texture texture_armL,
+							  sf::Texture texture_legR,
+							  sf::Texture texture_legL,
+							  sf::Sprite sprite_body,
+							  sf::Sprite sprite_head,
+							  sf::Sprite sprite_armR,
+							  sf::Sprite sprite_armL,
+							  sf::Sprite sprite_legR,
+							  sf::Sprite sprite_legL
+		);
+
+		void jump();
 
 	private :
+		double xScale;
+		double yScale;
+		int x_body, y_body, x_head, y_head, x_armR, y_armR, x_armL, y_armL, x_legR, y_legR, x_legL, y_legL;
 
+		RenderWindow fenetre;
+		
 
-		// Création des sprites du Corps du personnage
-		sf::Sprite body;
-		sf::Sprite head;
-		sf::Sprite armR;
-		sf::Sprite armL;
-		sf::Sprite legR;
-		sf::Sprite legl;
 
 };
 
