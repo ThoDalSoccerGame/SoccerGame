@@ -112,6 +112,22 @@ string form(Text stringF, Text otherString, string stringForm) {
 			switch (event.type) {
 			case  Event::MouseButtonPressed: {
 				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > 553
+					&& event.mouseButton.x < (553 + 609)
+					&& event.mouseButton.y > 250
+					&& event.mouseButton.y < (250 + 68)
+					) {
+					return stringForm;
+				}
+				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > 0
+					&& event.mouseButton.x < (dWidth)
+					&& event.mouseButton.y > 0
+					&& event.mouseButton.y < (dHeight)
+					) {
+					return stringForm;
+				}
+				if (event.mouseButton.button == Mouse::Left
 					&& event.mouseButton.x > 0
 					&& event.mouseButton.x < (dWidth)
 					&& event.mouseButton.y > 0
@@ -162,12 +178,37 @@ vector<string> formPass(Text stringF, Text otherString, string stringForm, strin
 			switch (event.type) {
 			case  Event::MouseButtonPressed: {
 				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > 553
+					&& event.mouseButton.x < (553 + 609)
+					&& event.mouseButton.y > 250
+					&& event.mouseButton.y < (250 + 68)
+				){
+					vector<string> result;
+					string typeForm = "";
+					result.push_back(stringForm);
+					result.push_back(stringPass);
+					result.push_back(typeForm);
+					return result;
+				}
+				if (event.mouseButton.button == Mouse::Left
+					&& event.mouseButton.x > 630
+					&& event.mouseButton.x < (630 + 609)
+					&& event.mouseButton.y > 354
+					&& event.mouseButton.y < (354 + 68)
+					) {
+					vector<string> result;
+					string typeForm = "Pass";
+					result.push_back(stringForm);
+					result.push_back(stringPass);
+					result.push_back(typeForm);
+					return result;
+				}
+				if (event.mouseButton.button == Mouse::Left
 					&& event.mouseButton.x > 0
 					&& event.mouseButton.x < (dWidth)
 					&& event.mouseButton.y > 0
 					&& event.mouseButton.y < (dHeight)
 					) {
-
 					vector<string> result;
 					result.push_back(stringForm);
 					result.push_back(stringPass);
@@ -216,6 +257,7 @@ void login() {
 	vector<string> stringPassword;
 	string stringPass = "";
 	string stringPassPoint = "";
+	string typeForm = "";
 
 	while (login)
 	{
@@ -263,7 +305,7 @@ void login() {
 					password.setCharacterSize(50);
 					password.setFillColor(Color::Black);
 					password.setPosition(637, 348);
-
+					typeForm = "password";
 					stringPassword = formPass(password, pseudo, stringPass, stringPassPoint);
 					stringPass = stringPassword[0];
 					stringPassPoint = stringPassword[1];
