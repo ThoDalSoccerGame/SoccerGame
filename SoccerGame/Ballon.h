@@ -1,1 +1,1 @@
-#pragma once
+/* Head de la classe Ballon du jeu soccer game */
