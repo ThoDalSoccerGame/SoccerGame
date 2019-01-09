@@ -139,16 +139,7 @@ bool touchSol(FloatRect head, FloatRect body, FloatRect legR, FloatRect legL, Fl
 	if (armR.intersects(boudingboxSol)) {
 		cout << "false";
 		return false;
-	}
-
-	// Vérification pour le armL :
-	if (armL.intersects(boudingboxSol)) {
-		cout << "false";
-		return false;
-	}
-	cout << "true";
-	return true;
-}
+	}è
 
 /* Cette fonction permettra de faire un saut */
 void jump()
