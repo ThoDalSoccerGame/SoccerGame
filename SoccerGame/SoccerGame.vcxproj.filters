@@ -32,5 +32,8 @@
     <ClInclude Include="Personnage.h">
       <Filter>Fichiers sources</Filter>
     </ClInclude>
+    <ClInclude Include="Ballon.h">
+      <Filter>Fichiers sources</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
